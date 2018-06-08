@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         list = intent.getStringArrayListExtra("list");
         Log.d("123", "onCreate: "+list);
+        final TextView textView = findViewById(R.id.textView);
         final TextView num = findViewById(R.id.num);
         Button zhiri = findViewById(R.id.button);
             zhiri.setOnClickListener(new View.OnClickListener() {
@@ -59,9 +60,21 @@ public class MainActivity extends AppCompatActivity {
                             num.setText(num1);
                         }
                         list.remove(index);
+                        Toast.makeText(MainActivity.this,num1,Toast.LENGTH_SHORT).show();
                     }else {
                         num.setTextColor(0xff8B2252);
                         num.setText("祝你有个好周末");
+                    }
+                    if (!num.getText().equals("祝你有个好周末")){
+                        textView.setVisibility(View.VISIBLE);
+                        int i = Integer.parseInt(textView.getText().toString());
+                        i=i+1;
+                        textView.setText(Integer.toString(i));
+                    }else {
+                        textView.setVisibility(View.VISIBLE);
+                        textView.setText("正在退出,请稍后.......");
+                        Handler handler = new Handler();
+                        handler.postDelayed(()->finish(),2000);
                     }
                     /*new Thread(new Runnable() {
                         @Override
